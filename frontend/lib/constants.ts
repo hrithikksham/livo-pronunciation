@@ -9,7 +9,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 export const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL ?? "https://livo-pronunciation.onrender.com/api/v1";
+  process.env.NEXT_PUBLIC_API_URL ?? "https://livo-pronunciation.onrender.com";
 
 export const ANALYZE_ENDPOINT = "/analyze";
 
