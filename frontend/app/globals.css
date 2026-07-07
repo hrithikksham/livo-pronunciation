@@ -1,0 +1,150 @@
+@import "tailwindcss";
+
+
+/* ── Fonts ─────────────────────────────────────────────────────
+   Prefer next/font in layout.tsx for production (avoids FOUT and
+   self-hosts automatically). This @import is the quick path if
+   you want fonts working immediately without touching layout.tsx.
+------------------------------------------------------------------ */
+
+/* ── Design tokens — "Studio Console" system ───────────────────── */
+:root {
+  /* Color */
+  --bg: #0f1113;
+  --surface: #181b1e;
+  --surface-raised: #1f2226;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.14);
+
+  --text-primary: #edede8;
+  --text-secondary: rgba(237, 237, 232, 0.7);
+  --text-muted: rgba(237, 237, 232, 0.52);
+  --text-faint: rgba(237, 237, 232, 0.35);
+
+  --accent-amber: #e8a33d;
+  --accent-amber-dim: rgba(232, 163, 61, 0.12);
+  --accent-teal: #5fc7be;
+
+  --success: #6fcf97;
+  --success-dim: rgba(111, 207, 151, 0.1);
+  --error: #e2685a;
+  --error-dim: rgba(226, 104, 90, 0.08);
+
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 999px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --duration-slow: 600ms;
+
+  /* Type */
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", monospace;
+}
+
+/* ── Base ──────────────────────────────────────────────────────── */
+* {
+  border-color: var(--border);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent-amber-dim);
+  color: var(--text-primary);
+}
+
+/* Monospace utility class for data/labels/scores, matching the type system */
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* ── Scrollbar — quiet, not the browser default ───────────────── */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--surface-raised);
+  border-radius: var(--radius-full);
+  border: 2px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-strong);
+}
+
+/* ── Focus — always visible, never suppressed ─────────────────── */
+:focus-visible {
+  outline: 2px solid var(--accent-amber);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Remove focus ring only for mouse users landing on the file input's
+   hidden control — the visible label already carries the affordance */
+input[type="file"]:focus-visible {
+  outline: none;
+}
+
+/* ── Motion accessibility floor ────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Small utility layer — used sparingly, only where Tailwind's
+   arbitrary values would otherwise repeat the same hex/space values
+   across multiple components ───────────────────────────────────── */
+@layer utilities {
+  .bg-surface {
+    background-color: var(--surface);
+  }
+  .bg-surface-raised {
+    background-color: var(--surface-raised);
+  }
+  .text-muted {
+    color: var(--text-muted);
+  }
+  .text-faint {
+    color: var(--text-faint);
+  }
+  .border-hairline {
+    border-width: 1px;
+    border-color: var(--border);
+  }
+}

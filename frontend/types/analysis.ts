@@ -1,0 +1,88 @@
+/**
+ * Backend API Response Types
+ *
+ * Mirrors FastAPI response models.
+ *
+ * Author: Hrithik
+ */
+
+///////////////////////////////////////////////////////////////////////////////
+// Score Breakdown
+///////////////////////////////////////////////////////////////////////////////
+
+export interface ScoreBreakdown {
+  clarity: number;
+  fluency: number;
+  word_accuracy: number;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Transcript
+///////////////////////////////////////////////////////////////////////////////
+
+export interface TranscriptWord {
+  word: string;
+  start: number;
+  end: number;
+  confidence: number;
+  highlighted: boolean;
+}
+
+export interface Transcript {
+  text: string;
+  words: TranscriptWord[];
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Mistakes
+///////////////////////////////////////////////////////////////////////////////
+
+export type IssueType =
+  | "mispronunciation"
+  | "stress"
+  | "intonation"
+  | "fluency"
+  | "omission"
+  | "insertion"
+  | "unclear";
+
+export interface Mistake {
+  word: string;
+  issue_type: IssueType;
+  timestamp_seconds: number;
+  confidence: number;
+  explanation: string;
+  suggestion: string;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Analysis Result
+///////////////////////////////////////////////////////////////////////////////
+
+export interface AnalysisResult {
+  overall_score: number;
+
+  score_breakdown: ScoreBreakdown;
+
+  transcript: Transcript;
+
+  duration_seconds: number;
+
+  mistakes: Mistake[];
+
+  overall_feedback: string;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+// Error Response
+///////////////////////////////////////////////////////////////////////////////
+
+export interface ErrorBody {
+  code: string;
+  message: string;
+  request_id?: string;
+}
+
+export interface ErrorResponse {
+  error: ErrorBody;
+}
